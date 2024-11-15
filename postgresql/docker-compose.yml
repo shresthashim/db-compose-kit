@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - ./data/db:/var/lib/postgresql/data # Persist PostgreSQL data
+    ports:
+      - 5432:5432 # Make sure port 5432 isn't in use elsewhere
+    environment:
+      - POSTGRES_DB=admin-db
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    networks:
+      - db_network # Custom network for isolation (optional)
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080 # Access Adminer on port 8080
+    networks:
+      - db_network # Connect Adminer to the custom network (optional)
+
+networks:
+  db_network: # Define a custom network for isolation (optional)

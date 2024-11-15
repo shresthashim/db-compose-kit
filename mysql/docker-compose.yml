@@ -1,0 +1,26 @@
+services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: admin-db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    ports:
+      - 3306:3306 # Make sure port 3306 isn't in use
+    volumes:
+      - ./mysql:/var/lib/mysql # Store MySQL data persistently
+    networks:
+      - db_network
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080 # Access Adminer on port 8080
+    networks:
+      - db_network
+
+networks:
+  db_network: # Custom network for isolation (optional)

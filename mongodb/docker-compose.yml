@@ -1,0 +1,12 @@
+services:
+  mongo:
+    image: mongo
+    restart: always
+    container_name: mongo
+    ports:
+      - 27017:27017 # Maps the host port 27017 to the container port 27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    volumes:
+      - ./db_data:/data/db # Binds the host folder `db_data` to `/data/db` in the container
